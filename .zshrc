@@ -1,3 +1,14 @@
+if [ ! command -v tmux &> /dev/null ]; then
+  echo "tmux is not installed"
+# Check:
+#   - Are in an interactive shell
+#   - Not in a `screen` session
+#   - Not in a `tmux` session
+#   - `$TMUX` not set (not in a tmux session)
+elif [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+  exec tmux
+fi
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
